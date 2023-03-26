@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Flex } from "@adobe/react-spectrum";
+import { useEffect } from "react";
+import { GOOGLE_CLIENT_ID } from "./envs";
+import { GoogleLoginResult } from "./types";
 
 function App() {
-  const [count, setCount] = useState(0)
+  useEffect(() => {
+    const signInWithGoogle = (data: GoogleLoginResult) => {
+      console.log(data);
+    };
+    window.signInWithGoogle = signInWithGoogle;
+  }, []);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <Flex justifyContent="center" alignItems="center" height="100vh">
+      <div
+        id="g_id_onload"
+        data-client_id={GOOGLE_CLIENT_ID}
+        data-context="use"
+        data-ux_mode="popup"
+        data-callback="signInWithGoogle"
+        data-itp_support="true"
+      ></div>
+      <div
+        className="g_id_signin"
+        data-type="standard"
+        data-shape="pill"
+        data-theme="outline"
+        data-text="continue_with"
+        data-size="large"
+        data-logo_alignment="left"
+      ></div>
+    </Flex>
+  );
 }
 
-export default App
+export default App;

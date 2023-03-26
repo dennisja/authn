@@ -1,10 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { defaultTheme, Provider } from "@adobe/react-spectrum";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+import App from "./App";
+import "./main.css";
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <Provider theme={defaultTheme}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);

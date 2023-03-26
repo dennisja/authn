@@ -1,0 +1,10 @@
+/* TODO: maybe use a better preset*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.g_id_signin iframe {
+  color-scheme: auto;
+}
