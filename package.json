@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev:app": "lerna run dev --scope=app"
+    "dev:app": "lerna run dev --scope=app",
+    "dev:api": "lerna run dev --scope=api"
   },
   "devDependencies": {
     "lerna": "^6.6.1"
