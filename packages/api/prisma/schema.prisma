@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String        @id @default(uuid()) @db.Uuid
+  email      String        @unique @db.VarChar(100)
+  joinedAt   DateTime      @default(now()) @map("joined_at")
+  authType   AuthType      @default(GOOGLE) @map("auth_type")
+  profile    UserProfile[]
+  userStatus UserStatus    @default(UNVERIFIED)
+
+  @@map("users")
+}
+
+enum UserStatus {
+  ACTIVATED
+  DEACTIVATED
+  UNVERIFIED
+}
+
+model UserProfile {
+  id              Int       @id @default(autoincrement())
+  firstName       String    @map("first_name") @db.VarChar(30)
+  lastName        String    @map("last_name") @db.VarChar(30)
+  otherNames      String    @map("other_names") @db.VarChar(60)
+  profileImageUrl String    @map("profile_image_url") @db.VarChar()
+  userId          String    @map("user_id") @db.Uuid
+  user            User      @relation(fields: [userId], references: [id])
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime? @map("updated_at")
+
+  @@map("user_profile")
+}
+
+enum AuthType {
+  GOOGLE
+  EMAIL
+}
