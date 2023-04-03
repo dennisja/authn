@@ -1,4 +1,5 @@
 import { UserRegistrationStatus } from "@prisma/client";
+
 import { schemaBuilder } from "../builder";
 import { prismaClient } from "../db";
 
