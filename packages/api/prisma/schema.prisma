@@ -5,23 +5,27 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator pothos {
+  provider = "prisma-pothos-types"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id         String        @id @default(uuid()) @db.Uuid
-  email      String        @unique @db.VarChar(100)
-  joinedAt   DateTime      @default(now()) @map("joined_at")
-  authType   AuthType      @default(GOOGLE) @map("auth_type")
-  profile    UserProfile[]
-  userStatus UserStatus    @default(UNVERIFIED)
+  id                 String                 @id @default(uuid()) @db.Uuid
+  email              String                 @unique @db.VarChar(100)
+  joinedAt           DateTime               @default(now()) @map("joined_at")
+  authType           AuthType               @default(GOOGLE) @map("auth_type")
+  profile            UserProfile?
+  registrationStatus UserRegistrationStatus @default(UNVERIFIED) @map("registration_status")
 
   @@map("users")
 }
 
-enum UserStatus {
+enum UserRegistrationStatus {
   ACTIVATED
   DEACTIVATED
   UNVERIFIED
@@ -33,10 +37,11 @@ model UserProfile {
   lastName        String    @map("last_name") @db.VarChar(30)
   otherNames      String    @map("other_names") @db.VarChar(60)
   profileImageUrl String    @map("profile_image_url") @db.VarChar()
-  userId          String    @map("user_id") @db.Uuid
+  userId          String    @unique @map("user_id") @db.Uuid
   user            User      @relation(fields: [userId], references: [id])
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime? @map("updated_at")
+  birthday        DateTime?
 
   @@map("user_profile")
 }

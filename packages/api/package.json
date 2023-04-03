@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
-    "create-migration": "npx prisma migrate dev"
+    "create-migration": "npx prisma migrate dev",
+    "build": "yarn && npx prisma generate"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
@@ -14,8 +15,11 @@
     "typescript": "^5.0.3"
   },
   "dependencies": {
-    "@graphql-yoga/node": "^3.8.0",
+    "@pothos/core": "^3.29.0",
+    "@pothos/plugin-prisma": "^3.47.1",
     "@prisma/client": "^4.12.0",
-    "graphql": "^16.6.0"
+    "graphql": "^16.6.0",
+    "graphql-scalars": "^1.21.3",
+    "graphql-yoga": "^3.8.0"
   }
 }
