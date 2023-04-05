@@ -18,5 +18,6 @@ schemaBuilder.addScalarType("DateTime", DateTimeResolver, {});
 schemaBuilder.addScalarType("Date", DateResolver, {});
 
 schemaBuilder.queryType({});
+schemaBuilder.mutationType({});
 
 export { schemaBuilder };
