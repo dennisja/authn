@@ -6,9 +6,10 @@ import {
 } from "@prisma/client";
 import { OAuth2Client } from "google-auth-library";
 
-import { prismaClient } from "../../db";
 import { GOOGLE_AUTH_CLIENT_ID } from "../../../envs";
+import { generateToken } from "../../../utils/token";
 import { schemaBuilder } from "../../builder";
+import { prismaClient } from "../../db";
 
 const oAuthClient = new OAuth2Client(GOOGLE_AUTH_CLIENT_ID);
 
@@ -79,10 +80,15 @@ schemaBuilder.mutationField("loginWithGoogle", (t) =>
         });
       }
 
-      // TODO: maybe generate app internal auth token
+      // create an auth token
+      const token = await generateToken({
+        email: user.email,
+      });
+      await prismaClient.authToken.create({
+        data: { token, userId: user.id },
+      });
 
-      // we return the google token after verifying that its valid
-      return new LoginResult(args.credential, user);
+      return new LoginResult(token, user);
     },
   })
 );
