@@ -6,34 +6,9 @@ import {
 } from "@prisma/client";
 import { OAuth2Client } from "google-auth-library";
 
-import { schemaBuilder } from "../builder";
-import { prismaClient } from "../db";
-import { GOOGLE_AUTH_CLIENT_ID } from "../../envs";
-
-schemaBuilder.enumType(UserRegistrationStatus, {
-  name: "UserRegistrationStatus",
-});
-
-schemaBuilder.prismaObject("User", {
-  fields: (t) => ({
-    id: t.exposeID("id"),
-    email: t.exposeString("email"),
-    joinedAt: t.expose("joinedAt", { type: "DateTime" }),
-    registrationStatus: t.expose("registrationStatus", {
-      type: UserRegistrationStatus,
-    }),
-    profile: t.relation("profile"),
-  }),
-});
-
-schemaBuilder.queryField("users", (t) =>
-  t.prismaField({
-    type: ["User"],
-    resolve: async (query) => {
-      return prismaClient.user.findMany(query);
-    },
-  })
-);
+import { prismaClient } from "../../db";
+import { GOOGLE_AUTH_CLIENT_ID } from "../../../envs";
+import { schemaBuilder } from "../../builder";
 
 const oAuthClient = new OAuth2Client(GOOGLE_AUTH_CLIENT_ID);
 

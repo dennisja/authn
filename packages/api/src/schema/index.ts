@@ -1,7 +1,7 @@
 import { schemaBuilder } from "./builder";
 
-import "./models/User";
-import "./models/Profile";
+import "./userProfile";
+import "./users";
 
 const schema = schemaBuilder.toSchema({});
 
