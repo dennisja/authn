@@ -1,9 +1,11 @@
 import { AuthTokenStatus } from "@prisma/client";
-import { prismaClient } from "../schema/db";
-
 import type { User } from "@prisma/client";
+
+import { prismaClient } from "../schema/db";
+import { LoginRequiredError } from "../schema/errors/LoginRequiredError";
+import type { AuthTokenPayload } from "../schema/users/types";
 import { decodeToken } from "./token";
-import { AuthTokenPayload } from "../schema/users/types";
+
 
 const getCurrentUserFromAuthHeader = async (
   authHeader: string
@@ -20,13 +22,6 @@ const getCurrentUserFromAuthHeader = async (
 
   return validTokenFromDB?.user ?? null;
 };
-
-class LoginRequiredError extends Error {
-  constructor(public message: string) {
-    super(message);
-    this.name = "LoginRequiredError";
-  }
-}
 
 const LOGIN_REQUIRED_MESSAGE =
   "You have to be logged in to perform this operation";
