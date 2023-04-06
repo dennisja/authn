@@ -1,10 +1,14 @@
 import { assertLoginRequired } from "../../../utils/context";
 import { schemaBuilder } from "../../builder";
 import { prismaClient } from "../../db";
+import { LoginRequiredError } from "../../errors/LoginRequiredError";
 
 schemaBuilder.queryField("userProfile", (t) =>
   t.prismaField({
     type: "UserProfile",
+    errors: {
+      types: [LoginRequiredError],
+    },
     args: {
       userId: t.arg.id({
         required: true,

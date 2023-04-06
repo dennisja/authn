@@ -19,12 +19,14 @@
   },
   "dependencies": {
     "@pothos/core": "^3.29.0",
+    "@pothos/plugin-errors": "^3.11.0",
     "@pothos/plugin-prisma": "^3.47.1",
     "@prisma/client": "^4.12.0",
     "google-auth-library": "^8.7.0",
     "graphql": "^16.6.0",
     "graphql-scalars": "^1.21.3",
     "graphql-yoga": "^3.8.0",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.0",
+    "zod": "^3.21.4"
   }
 }
