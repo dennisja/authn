@@ -8,12 +8,14 @@ import { getCurrentUserFromAuthHeader } from "./utils/context";
 
 const yoga = createYoga({
   schema,
-  context: async ({ request }) => ({
-    ...initContextCache(),
-    currentUser: await getCurrentUserFromAuthHeader(
-      request.headers.get("authorization") || ""
-    ),
-  }),
+  context: async ({ request }) => {
+    const authToken = request.headers.get("authorization") || "";
+    return {
+      ...initContextCache(),
+      currentUser: await getCurrentUserFromAuthHeader(authToken),
+      authToken,
+    };
+  },
 });
 
 const server = createServer(yoga);

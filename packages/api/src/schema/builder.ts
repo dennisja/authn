@@ -16,6 +16,7 @@ const schemaBuilder = new SchemaBuilder<{
   PrismaTypes: PrismaTypes;
   Context: {
     currentUser: User | null;
+    authToken: string;
   };
 }>({
   plugins: [
