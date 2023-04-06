@@ -1202,6 +1202,11 @@
   dependencies:
     "@prisma/generator-helper" "^4.11.0"
 
+"@pothos/plugin-validation@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@pothos/plugin-validation/-/plugin-validation-3.9.0.tgz#3a1b8db6d54de35d1f7c8ce83cf2fde5f80847cb"
+  integrity sha512-w2Q52l8JnhceKfDzuX1zOfspTZPc3gxxixgt10y1bB/h/kD2n/xwYXmAOLqyIN+TTr0Bi8/udYUDAAtWn9Q67A==
+
 "@prisma/client@^4.12.0":
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-4.12.0.tgz#119b692888b1fe0fd3305c7d0e0ac48520aa6839"

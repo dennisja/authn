@@ -1,12 +1,12 @@
 import SchemaBuilder from "@pothos/core";
 import ErrorsPlugin from "@pothos/plugin-errors";
 import PrismaPlugin from "@pothos/plugin-prisma";
+import type PrismaTypes from "@pothos/plugin-prisma/generated";
+import ValidationPlugin from "@pothos/plugin-validation";
+import type { User } from "@prisma/client";
 import { DateTimeResolver, DateResolver } from "graphql-scalars";
 
 import { prismaClient } from "./db";
-
-import type { User } from "@prisma/client";
-import type PrismaTypes from "@pothos/plugin-prisma/generated";
 
 const schemaBuilder = new SchemaBuilder<{
   Scalars: {
@@ -18,7 +18,11 @@ const schemaBuilder = new SchemaBuilder<{
     currentUser: User | null;
   };
 }>({
-  plugins: [ErrorsPlugin, PrismaPlugin],
+  plugins: [
+    PrismaPlugin,
+    ErrorsPlugin, // this should appear before the validation plugin
+    ValidationPlugin,
+  ],
   prisma: { client: prismaClient },
   errorOptions: {
     defaultTypes: [Error],
