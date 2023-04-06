@@ -6,11 +6,13 @@ import { LoginRequiredError } from "../schema/errors/LoginRequiredError";
 import type { AuthTokenPayload } from "../schema/users/types";
 import { decodeToken } from "./token";
 
-
 const getCurrentUserFromAuthHeader = async (
   authHeader: string
 ): Promise<User | null> => {
   const token = authHeader.replace("Bearer ", "").trim();
+
+  if (!token) return null; // user is not logged in
+
   const tokenPayload = decodeToken<AuthTokenPayload>(token);
 
   const validTokenFromDB = await prismaClient.authToken.findFirst({
@@ -19,7 +21,6 @@ const getCurrentUserFromAuthHeader = async (
       user: true,
     },
   });
-
   return validTokenFromDB?.user ?? null;
 };
 

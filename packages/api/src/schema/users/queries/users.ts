@@ -9,6 +9,7 @@ schemaBuilder.queryField("users", (t) =>
     errors: {
       types: [LoginRequiredError],
     },
+
     resolve: async (query, root, args, ctx) => {
       assertLoginRequired(ctx.currentUser);
       return prismaClient.user.findMany(query);
