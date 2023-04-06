@@ -2,7 +2,7 @@ import { sign, verify } from "jsonwebtoken";
 
 import { AUTH_TOKEN_SECRET_KEY } from "../envs";
 
-const generateToken = <Payload>(payload: Payload) => {
+const generateToken = <Payload>(payload: Payload): string => {
   return sign(payload as object, AUTH_TOKEN_SECRET_KEY);
 };
 
