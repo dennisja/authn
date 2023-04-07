@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --respawn --watch src ./src/index.ts",
+    "dev": "ts-node-dev --respawn --watch --exit-child src ./src/index.ts",
     "create-migration": "npx prisma migrate dev",
     "build": "yarn && npx prisma generate",
     "test": "vitest"

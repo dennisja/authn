@@ -1,15 +1,20 @@
-import { createYoga } from "graphql-yoga";
 import { initContextCache } from "@pothos/core";
+import { createYoga } from "graphql-yoga";
 import { createServer } from "node:http";
 
 import { PORT } from "./envs";
 import { schema } from "./schema";
-import { getCurrentUserFromAuthHeader } from "./utils/context";
+import {
+  extractTokenFromHeader,
+  getCurrentUserFromAuthHeader,
+} from "./utils/context";
 
 const yoga = createYoga({
   schema,
   context: async ({ request }) => {
-    const authToken = request.headers.get("authorization") || "";
+    const authToken = extractTokenFromHeader(
+      request.headers.get("authorization") || ""
+    );
     return {
       ...initContextCache(),
       currentUser: await getCurrentUserFromAuthHeader(authToken),
