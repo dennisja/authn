@@ -6,11 +6,12 @@ import { LoginRequiredError } from "../schema/errors/LoginRequiredError";
 import type { AuthTokenPayload } from "../schema/users/types";
 import { decodeToken } from "./token";
 
-const getCurrentUserFromAuthHeader = async (
-  authHeader: string
-): Promise<User | null> => {
-  const token = authHeader.replace("Bearer ", "").trim();
+const extractTokenFromHeader = (header: string): string =>
+  header.replace("Bearer ", "").trim();
 
+const getCurrentUserFromAuthHeader = async (
+  token: string
+): Promise<User | null> => {
   if (!token) return null; // user is not logged in
 
   const tokenPayload = decodeToken<AuthTokenPayload>(token);
@@ -31,4 +32,8 @@ const assertLoginRequired = (user: User | null) => {
   if (!user) throw new LoginRequiredError(LOGIN_REQUIRED_MESSAGE);
 };
 
-export { getCurrentUserFromAuthHeader, assertLoginRequired };
+export {
+  assertLoginRequired,
+  extractTokenFromHeader,
+  getCurrentUserFromAuthHeader,
+};
