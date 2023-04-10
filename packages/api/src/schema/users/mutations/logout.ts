@@ -4,6 +4,8 @@ import { assertLoginRequired } from "../../../utils/context";
 import { schemaBuilder } from "../../builder";
 import { prismaClient } from "../../db";
 import { LoginRequiredError } from "../../errors/LoginRequiredError";
+// import { ForbiddenError } from "@pothos/plugin-scope-auth";
+import { ForbiddenError } from "../../errors/ForbiddenError";
 
 class LogoutResult {
   constructor(public userId: string, public token: string) {}
@@ -26,7 +28,10 @@ schemaBuilder.mutationField("logout", (t) =>
     type: LogoutResult,
     description: "Logs out a user",
     errors: {
-      types: [LoginRequiredError],
+      types: [ForbiddenError],
+    },
+    authScopes: {
+      isLoggedIn: true,
     },
     resolve: async (root, args, ctx) => {
       assertLoginRequired(ctx.currentUser);

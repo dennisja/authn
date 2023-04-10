@@ -40,6 +40,7 @@ schemaBuilder.mutationField("loginWithGoogle", (t) =>
   t.field({
     type: LoginResult,
     description: "The result of a successful login",
+    errors: {},
     args: {
       credential: t.arg.string({
         required: true,
