@@ -28,8 +28,10 @@ const getCurrentUserFromAuthHeader = async (
 const LOGIN_REQUIRED_MESSAGE =
   "You have to be logged in to perform this operation";
 
-const assertLoginRequired = (user: User | null) => {
-  if (!user) throw new LoginRequiredError(LOGIN_REQUIRED_MESSAGE);
+const assertLoginRequired = (user: User | null): boolean => {
+  // if (!user) throw new LoginRequiredError(LOGIN_REQUIRED_MESSAGE);
+  // return true;
+  return Boolean(user)
 };
 
 export {
